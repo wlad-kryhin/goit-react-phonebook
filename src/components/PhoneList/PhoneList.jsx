@@ -1,5 +1,5 @@
-import PropTypes from 'prop-types';
-import s from './PhoneList.module.css';
+import PropTypes from "prop-types";
+import s from "./PhoneList.module.css";
 
 export default function PhoneList({ list, onDelete }) {
   return (
@@ -24,5 +24,5 @@ export default function PhoneList({ list, onDelete }) {
 }
 PhoneList.propTypes = {
   list: PropTypes.array,
-  onDelete: PropTypes.func.isRequired,
+  onDelete: PropTypes.func,
 };
