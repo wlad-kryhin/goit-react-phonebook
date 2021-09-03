@@ -5,14 +5,23 @@ import PhoneList from "./components/PhoneList/PhoneList";
 import ContactForm from "./components/ContactForm/ContactForm";
 import Filter from "./components/Filter/Filter";
 
-function App() {
+function App({ onSubmit }) {
   const [contacts, setContacts] = useState(() => {
-    return JSON.parse(window.localStorage.getItem("contacts")) ?? [];
+    return (
+      JSON.parse(window.localStorage.getItem("contacts")) ?? [
+        { id: uuidv4(), name: "Rosie Simpson", tel: "459-12-56" },
+        { id: uuidv4(), name: "Hermione Kline", tel: "443-89-12" },
+        { id: uuidv4(), name: "Eden Clements", tel: "645-17-79" },
+        { id: uuidv4(), name: "Annie Copeland", tel: "227-91-26" },
+      ]
+    );
   });
   const [filter, setFilter] = useState("");
 
   const handleContactDelete = (currentId) => {
-    setContacts(contacts.filter((contact) => contact.id !== currentId));
+    setContacts(({ contacts }) =>
+      contacts.filter((contact) => contact.id !== currentId),
+    );
   };
 
   const handleFilterContacts = (event) => {
@@ -42,10 +51,10 @@ function App() {
     }
   };
   const getFilterContacts = () => {
-    const normalizeFilter = filter.toLowerCase();
+    const normalizeFilter = filter.toLocaleLowerCase();
 
     return contacts.filter((contact) =>
-      contact.name.toLowerCase().includes(normalizeFilter),
+      contact.name.toLocaleLowerCase().includes(normalizeFilter),
     );
   };
 
@@ -56,10 +65,10 @@ function App() {
       <ContactForm onSubmit={handleContactAdd} />
       <h2>Contacts</h2>
       {contacts.length > 1 && (
-        <Filter value={filter} change={handleFilterContacts()} />
+        <Filter value={filter} change={handleFilterContacts} />
       )}
       {contacts.length > 0 ? (
-        <PhoneList list={filterContacts} onDelete={handleContactDelete()} />
+        <PhoneList list={filterContacts} onDelete={handleContactDelete} />
       ) : (
         <p>You are don*t have a contact</p>
       )}
