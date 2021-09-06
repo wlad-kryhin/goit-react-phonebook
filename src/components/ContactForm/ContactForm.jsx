@@ -2,7 +2,7 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 import s from "./ContactForm.module.css";
 
-export default function ContactForm({ onSubmit }) {
+export default function ContactForm({ submit }) {
   const [name, setName] = useState("");
   const [tel, setTel] = useState("");
 
@@ -15,8 +15,8 @@ export default function ContactForm({ onSubmit }) {
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
+    submit(name, tel);
     event.target.reset();
-    return onSubmit(name, tel);
   };
 
   return (

@@ -9,7 +9,7 @@ export default function Filter({ value, change }) {
         className={s.input}
         type="text"
         value={value}
-        onChange={change}
+        onChange={(e) => change(e.target.value)}
         placeholder="Find contact..."
       />
     </label>
