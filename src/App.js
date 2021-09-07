@@ -6,15 +6,17 @@ import ContactForm from "./components/ContactForm/ContactForm";
 import Filter from "./components/Filter/Filter";
 
 function App() {
-  const [contacts, setContacts] = useState([]);
+  const [contacts, setContacts] = useState(
+    () => JSON.parse(window.localStorage.getItem("contacts")) ?? []
+  );
   const [filter, setFilter] = useState("");
 
   const handleContactDelete = (currentId) => {
     setContacts(contacts.filter((contact) => contact.id !== currentId));
   };
 
-  const handleFilterContacts = (event) => {
-    setFilter(event.target.value);
+  const handleFilterContacts = (value) => {
+    setFilter(value);
   };
   useEffect(() => {
     window.localStorage.setItem("contacts", JSON.stringify(contacts));

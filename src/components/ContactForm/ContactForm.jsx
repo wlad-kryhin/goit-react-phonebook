@@ -15,8 +15,10 @@ export default function ContactForm({ submit }) {
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
-    submit(name, tel);
-    event.target.reset();
+    submit({ name, tel });
+    // event.target.reset();
+    setName("");
+    setTel("");
   };
 
   return (
